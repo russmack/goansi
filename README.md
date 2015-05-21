@@ -1,11 +1,16 @@
 # goansi
 
 Formatting for the terminal.
-![Progress](http://progressed.io/bar/100?title=done)
 
 ## Usage
+Run the example:
 ```
 go run examples/example.go
+```
+Use the library:
+```
+s := goansi.Anstring("I am black on green.").Black().BgGreen().Underline()
+fmt.Println(s)
 ```
 
 ## License
