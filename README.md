@@ -1,6 +1,6 @@
 # goansi
 
-Formatting for the terminal.
+Colour and style for the terminal.
 
 ## Usage
 Run the example:
