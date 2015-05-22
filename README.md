@@ -11,6 +11,11 @@ Use the library:
 ```
 s := goansi.Anstring("I am black on green.").Black().BgGreen().Underline()
 fmt.Println(s)
+
+Or
+
+style := goansi.NewStyle().Gray().BgBlue().Bold().BlinkSlow()
+fmt.Println(style.Render("I am white on blue."))
 ```
 
 ## License
