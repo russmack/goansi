@@ -5,8 +5,6 @@ import (
 	"strings"
 )
 
-type Anstring string
-
 const (
 	ESC             = "\x1b"    // Escape character ASCII decimal 27
 	CSI             = ESC + "[" // Control Sequence Introducer
@@ -39,80 +37,102 @@ const (
 	BgGray    = 47
 )
 
+type Anstring string
+
+// NewAnstring returns a new Anstring object.
 func NewAnstring(s string) Anstring {
 	return Anstring(s)
 }
+
+// Raw prints the string without the ESC escape character.
 func (s Anstring) Raw() string {
 	return strings.Replace(string(s), "\x1b", "", -1)
 }
 
-func meld(code int, s Anstring) Anstring {
-	return CSI + Anstring(strconv.Itoa(code)) + SGRSuffix + s + AllOff
+// meld constructs the string with specified ansi escape codes.
+func (s *Anstring) meld(code uint8) {
+	v := *s
+	*s = CSI + Anstring(strconv.Itoa(int(code))) + SGRSuffix + v + AllOff
 }
+
+// This method simply saves having to both set field, and return, in every style method.
+func (s *Anstring) get(code uint8) Anstring {
+	s.meld(code)
+	v := *s
+	return v
+}
+
+// Text Decoration.
 
 func (s Anstring) Bold() Anstring {
-	return meld(BoldIntensity, s)
+	return s.get(BoldIntensity)
 }
 func (s Anstring) Underline() Anstring {
-	return meld(Underline, s)
+	return s.get(Underline)
 }
 func (s Anstring) Normal() Anstring {
-	return meld(NormalIntensity, s)
+	return s.get(NormalIntensity)
 }
+func (s Anstring) BlinkSlow() Anstring {
+	return s.get(BlinkSlow)
+}
+func (s Anstring) Negative() Anstring {
+	return s.get(ImageNegative)
+}
+
+// Foreground Colours.
 
 func (s Anstring) Black() Anstring {
-	return meld(FgBlack, s)
+	return s.get(FgBlack)
 }
 func (s Anstring) Red() Anstring {
-	return meld(FgRed, s)
+	return s.get(FgRed)
 }
 func (s Anstring) Green() Anstring {
-	return meld(FgGreen, s)
+	return s.get(FgGreen)
 }
 func (s Anstring) Yellow() Anstring {
-	return meld(FgYellow, s)
+	return s.get(FgYellow)
 }
 func (s Anstring) Blue() Anstring {
-	return meld(FgBlue, s)
+	return s.get(FgBlue)
 }
 func (s Anstring) Magenta() Anstring {
-	return meld(FgMagenta, s)
+	return s.get(FgMagenta)
 }
 func (s Anstring) Cyan() Anstring {
-	return meld(FgCyan, s)
+	return s.get(FgCyan)
 }
 func (s Anstring) Gray() Anstring {
-	return meld(FgGray, s)
+	return s.get(FgGray)
 }
+
+// Background Colours.
 
 func (s Anstring) BgBlack() Anstring {
-	return meld(BgBlack, s)
+	return s.get(BgBlack)
 }
 func (s Anstring) BgRed() Anstring {
-	return meld(BgRed, s)
+	return s.get(BgRed)
 }
 func (s Anstring) BgGreen() Anstring {
-	return meld(BgGreen, s)
+	return s.get(BgGreen)
 }
 func (s Anstring) BgYellow() Anstring {
-	return meld(BgYellow, s)
+	return s.get(BgYellow)
 }
 func (s Anstring) BgBlue() Anstring {
-	return meld(BgBlue, s)
+	return s.get(BgBlue)
 }
 func (s Anstring) BgMagenta() Anstring {
-	return meld(BgMagenta, s)
+	return s.get(BgMagenta)
 }
 func (s Anstring) BgCyan() Anstring {
-	return meld(BgCyan, s)
+	return s.get(BgCyan)
 }
 func (s Anstring) BgGray() Anstring {
-	return meld(BgGray, s)
+	return s.get(BgGray)
 }
-
-//func (s Anstring) () Anstring {
-//	return meld(Fg, s)
-//}
 
 /* Omitted as poorly supported.
 
