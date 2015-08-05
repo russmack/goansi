@@ -5,6 +5,7 @@ import (
 	"strings"
 )
 
+// ANSI escape codes. Ref: https://en.wikipedia.org/wiki/ANSI_escape_code
 const (
 	ESC             = "\x1b"    // Escape character ASCII decimal 27
 	CSI             = ESC + "[" // Control Sequence Introducer
@@ -17,7 +18,9 @@ const (
 	BlinkSlow       = 5         // less than 150 per minute
 	ImageNegative   = 7         // inverse or reverse; swap foreground and background
 	NormalIntensity = 22        // Neither bold nor faint
+
 	// Set text color (foreground) = 30–37 ; 30 + x
+
 	FgBlack   = 30
 	FgRed     = 31
 	FgGreen   = 32
@@ -26,7 +29,9 @@ const (
 	FgMagenta = 35
 	FgCyan    = 36
 	FgGray    = 37
+
 	// Set background color	 = 	40–47 ; 40 + x
+
 	BgBlack   = 40
 	BgRed     = 41
 	BgGreen   = 42
@@ -37,6 +42,7 @@ const (
 	BgGray    = 47
 )
 
+// Anstring is an ansi styled string.
 type Anstring string
 
 // NewAnstring returns a new Anstring object.

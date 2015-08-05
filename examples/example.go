@@ -8,7 +8,7 @@ import (
 func main() {
 
 	/*
-	 * Fluid interface
+	 * Fluent interface
 	 */
 
 	// Create anstring, add style later.
@@ -19,12 +19,12 @@ func main() {
 	a2 := goansi.Anstring("I am white on cyan.").Gray().Bold().BgCyan()
 	fmt.Println(a2)
 
-	// Create anstring, and style inline.
+	// Create anstring, style, and print inline.
 	s := "I am blinky black on green."
 	fmt.Println(goansi.Anstring(s).Black().BgGreen().Underline().BlinkSlow())
 
 	/*
-	 * Create style, then render
+	 * Create style, then render string.
 	 */
 
 	//style := goansi.NewAnstyle().Yellow().BgRed()

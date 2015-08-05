@@ -2,16 +2,19 @@ package goansi
 
 import ()
 
+// Style is a list of style codes to be applied to a string.
 type Style []uint8
 
+// NewStyle creates a new Style list.
 func NewStyle() Style {
 	return Style{}
 }
 
-func (a Style) Render(s string) string {
-	t := NewAnstring(s)
-	for i := len(a) - 1; i >= 0; i-- {
-		t.meld(a[i])
+// Render applies a list of styles to the provided string.
+func (s Style) Render(raw string) string {
+	t := NewAnstring(raw)
+	for i := len(s) - 1; i >= 0; i-- {
+		t.meld(s[i])
 	}
 	return string(t)
 }
@@ -35,6 +38,8 @@ func (s Style) Negative() Style {
 }
 
 // Foreground Colours.
+
+// Black adds the black foreground style to the style list.
 func (s Style) Black() Style {
 	return append(s, FgBlack)
 }
